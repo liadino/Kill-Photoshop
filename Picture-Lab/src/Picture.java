@@ -107,13 +107,27 @@ public class Picture extends SimplePicture
 	    	{
 	    	for (Pixel pixelObj : rowArray)
 	    		{
-	    		int currentRed = getRed();
-	    		int currentRed = getBlue();
-	    		int currentRed = getGreen();
 
-	    		pixelObj.setRed(255-getRed());
-	    		pixelObj.setGreen(255-getBlue());
-	    		pixelObj.setBlue(255-getGreen());
+	    		pixelObj.setRed(255-pixelObj.getRed());
+	    		pixelObj.setBlue(255-pixelObj.getBlue());
+	    		pixelObj.setGreen(255-pixelObj.getGreen());
+
+	    		}
+	    	}
+		
+	}
+	public void grayscale() {
+	
+	    Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    	{
+	    	for (Pixel pixelObj : rowArray)
+	    		{
+	    		int average = (pixelObj.getRed() + pixelObj.getBlue() + pixelObj.getGreen())/3;
+
+	    		pixelObj.setRed(average);
+	    		pixelObj.setBlue(average);
+	    		pixelObj.setGreen(average);
 
 	    		}
 	    	}
@@ -237,7 +251,9 @@ public class Picture extends SimplePicture
 		{
 	    Picture beach = new Picture("beach.jpg");
 	    beach.explore();
-	    beach.zeroBlue();
+	    beach.grayscale();
+	    //beach.negate();
+	    //beach.zeroBlue();
 	    beach.explore();
 		}
 	} // this } is the end of class Picture, put all new methods before this
