@@ -116,6 +116,29 @@ public class Picture extends SimplePicture
 	    	}
 		
 	}
+	public void fixUnderwater() {
+	    Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    	{
+	    	for (Pixel pixelObj : rowArray)
+	    		{
+
+	    		//pixelObj.setRed(255-pixelObj.getRed());
+	    		if(pixelObj.getBlue() > pixelObj.getGreen()) {
+		    		pixelObj.setBlue(pixelObj.getBlue()-50);
+		    		pixelObj.setGreen(pixelObj.getGreen()-50);
+		    		pixelObj.setRed(pixelObj.getRed()-50);
+	    		}
+	    		else {
+	    		pixelObj.setBlue(pixelObj.getBlue()+75);
+	    		pixelObj.setGreen(pixelObj.getGreen()+75);
+	    		pixelObj.setRed(pixelObj.getRed()+75);
+
+	    		}
+	    		}
+	    	}
+		
+	}
 	public void grayscale() {
 	
 	    Pixel[][] pixels = this.getPixels2D();
@@ -249,11 +272,12 @@ public class Picture extends SimplePicture
    */
 	public static void main(String[] args) 
 		{
-	    Picture beach = new Picture("beach.jpg");
+	    Picture beach = new Picture("water.jpg");
 	    beach.explore();
-	    beach.grayscale();
+	    //beach.grayscale();
 	    //beach.negate();
 	    //beach.zeroBlue();
+	    beach.fixUnderwater();
 	    beach.explore();
 		}
 	} // this } is the end of class Picture, put all new methods before this
