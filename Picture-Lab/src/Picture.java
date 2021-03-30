@@ -185,8 +185,8 @@ public class Picture extends SimplePicture {
 		Pixel[][] pixels = this.getPixels2D();
 		Pixel topPixel = null;
 		Pixel bottomPixel = null;
-		int height = pixels.length;
-		for (int row = 0; row < pixels.length/2; row++) {
+		int height = pixels.length-1;
+		for (int row = 474; row > 0; row--) {
 			for (int col = pixels[0].length - 1 ; col > 0; col--) {
 				topPixel = pixels[row][col];
 				bottomPixel = pixels[height - 1 - row][col];
@@ -209,6 +209,25 @@ public class Picture extends SimplePicture {
 			for (int col = 13; col < mirrorPoint; col++) {
 				leftPixel = pixels[row][col];
 				rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+				rightPixel.setColor(leftPixel.getColor());
+			}
+		}
+	}
+	/** Mirror just part of a picture of a temple */
+	public void mirrorDiagonal() {
+		int mirrorPoint = 276;
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		int count = 0;
+		Pixel[][] pixels = this.getPixels2D();
+
+		// loop through the rows
+		for (int row = 0; row < 479; row++) {
+			// loop from 13 to just before the mirror point
+			for (int col = 0; col < 479; col++) {
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[col][row];
+				//rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
 				rightPixel.setColor(leftPixel.getColor());
 			}
 		}
@@ -330,16 +349,18 @@ public class Picture extends SimplePicture {
 	 * Main method for testing - each class in Java can have a main method
 	 */
 	public static void main(String[] args) {
-		Picture beach = new Picture("seagull.jpg");
+		Picture beach = new Picture("beach.jpg");
 		beach.explore();
 		// beach.grayscale();
 		// beach.negate();
 		// beach.zeroBlue();
 		// beach.fixUnderwater();
-		// beach.mirrorVerticalRightToLeft();
+        //beach.mirrorVerticalRightToLeft();
 		//beach.mirrorHorizontal();
+		beach.mirrorHorizontalBotToTop();
 		//beach.mirrorArms();
-		beach.mirrorGull();
+		//beach.mirrorGull();
+		//beach.mirrorDiagonal();
 		beach.explore();
 	}
 } // this } is the end of class Picture, put all new methods before this
